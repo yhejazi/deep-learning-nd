@@ -13100,14 +13100,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="TV-Script-Generation">TV Script Generation<a class="anchor-link" href="#TV-Script-Generation">&#182;</a></h1><p>In this project, you'll generate your own <a href="https://en.wikipedia.org/wiki/Seinfeld">Seinfeld</a> TV scripts using RNNs.  You'll be using part of the <a href="https://www.kaggle.com/thec03u5/seinfeld-chronicles#scripts.csv">Seinfeld dataset</a> of scripts from 9 seasons.  The Neural Network you'll build will generate a new ,"fake" TV script, based on patterns it recognizes in this training data.</p>
-<h2 id="Get-the-Data">Get the Data<a class="anchor-link" href="#Get-the-Data">&#182;</a></h2><p>The data is already provided for you in <code>./data/Seinfeld_Scripts.txt</code> and you're encouraged to open that file and look at the text.</p>
-<blockquote><ul>
-<li>As a first step, we'll load in this data and look at some samples. </li>
-<li>Then, you'll be tasked with defining and training an RNN to generate a new script!</li>
-</ul>
-</blockquote>
-
+<h1 id="TV-Script-Generation">TV Script Generation<a class="anchor-link" href="#TV-Script-Generation">&#182;</a></h1><p>In this project, I've generated my own <a href="https://en.wikipedia.org/wiki/Seinfeld">Seinfeld</a> TV scripts using RNNs.  I used part of the <a href="https://www.kaggle.com/thec03u5/seinfeld-chronicles#scripts.csv">Seinfeld dataset</a> of scripts from 9 seasons.  The Neural Network I built generates a new ,"fake" TV script, based on patterns it recognizes in this training data.</p>
+<h2 id="Get-the-Data">Get the Data<a class="anchor-link" href="#Get-the-Data">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13130,7 +13124,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Explore-the-Data">Explore the Data<a class="anchor-link" href="#Explore-the-Data">&#182;</a></h2><p>Play around with <code>view_line_range</code> to view different parts of the data. This will give you a sense of the data you'll be working with. You can see, for example, that it is all lowercase text, and each new line of dialogue is separated by a newline character <code>\n</code>.</p>
+<h2 id="Explore-the-Data">Explore the Data<a class="anchor-link" href="#Explore-the-Data">&#182;</a></h2><p>Use <code>view_line_range</code> to view different parts of the data. We can see, for example, that it is all lowercase text, and each new line of dialogue is separated by a newline character <code>\n</code>.</p>
 
 </div>
 </div>
@@ -13199,12 +13193,12 @@ george: yes, it was purple, i liked it, i dont actually recall considering the b
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<h2 id="Implement-Pre-processing-Functions">Implement Pre-processing Functions<a class="anchor-link" href="#Implement-Pre-processing-Functions">&#182;</a></h2><p>The first thing to do to any dataset is pre-processing.  Implement the following pre-processing functions below:</p>
+<h2 id="Implement-Pre-processing-Functions">Implement Pre-processing Functions<a class="anchor-link" href="#Implement-Pre-processing-Functions">&#182;</a></h2><p>The first thing to do to any dataset is pre-processing.  Let's implement the following pre-processing functions below:</p>
 <ul>
 <li>Lookup Table</li>
 <li>Tokenize Punctuation</li>
 </ul>
-<h3 id="Lookup-Table">Lookup Table<a class="anchor-link" href="#Lookup-Table">&#182;</a></h3><p>To create a word embedding, you first need to transform the words to ids.  In this function, create two dictionaries:</p>
+<h3 id="Lookup-Table">Lookup Table<a class="anchor-link" href="#Lookup-Table">&#182;</a></h3><p>To create a word embedding, we first need to transform the words to ids. Let's create two dictionaries:</p>
 <ul>
 <li>Dictionary to go from the words to an id, we'll call <code>vocab_to_int</code></li>
 <li>Dictionary to go from the id to word, we'll call <code>int_to_vocab</code></li>
@@ -13264,7 +13258,7 @@ george: yes, it was purple, i liked it, i dont actually recall considering the b
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Tokenize-Punctuation">Tokenize Punctuation<a class="anchor-link" href="#Tokenize-Punctuation">&#182;</a></h3><p>We'll be splitting the script into a word array using spaces as delimiters.  However, punctuations like periods and exclamation marks can create multiple ids for the same word. For example, "bye" and "bye!" would generate two different word ids.</p>
-<p>Implement the function <code>token_lookup</code> to return a dict that will be used to tokenize symbols like "!" into "||Exclamation_Mark||".  Create a dictionary for the following symbols where the symbol is the key and value is the token:</p>
+<p>Let's write the function <code>token_lookup</code> to return a dict that will be used to tokenize symbols like "!" into "||Exclamation_Mark||".  First, create a dictionary for the following symbols where the symbol is the key and value is the token:</p>
 <ul>
 <li>Period ( <strong>.</strong> )</li>
 <li>Comma ( <strong>,</strong> )</li>
@@ -13277,7 +13271,7 @@ george: yes, it was purple, i liked it, i dont actually recall considering the b
 <li>Dash ( <strong>-</strong> )</li>
 <li>Return ( <strong>\n</strong> )</li>
 </ul>
-<p>This dictionary will be used to tokenize the symbols and add the delimiter (space) around it.  This separates each symbols as its own word, making it easier for the neural network to predict the next word. Make sure you don't use a value that could be confused as a word; for example, instead of using the value "dash", try using something like "||dash||".</p>
+<p>This dictionary will be used to tokenize the symbols and add the delimiter (space) around it.  This separates each symbols as its own word, making it easier for the neural network to predict the next word. Don't use a value that could be confused as a word; for example, instead of using the value "dash", use something like "||dash||".</p>
 
 </div>
 </div>
@@ -13326,8 +13320,7 @@ george: yes, it was purple, i liked it, i dont actually recall considering the b
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Pre-process-all-the-data-and-save-it">Pre-process all the data and save it<a class="anchor-link" href="#Pre-process-all-the-data-and-save-it">&#182;</a></h2><p>Running the code cell below will pre-process all the data and save it to file. You're encouraged to look at the code for <code>preprocess_and_save_data</code> in the <code>helpers.py</code> file to see what it's doing in detail, but you do not need to change this code.</p>
-
+<h2 id="Pre-process-all-the-data-and-save-it">Pre-process all the data and save it<a class="anchor-link" href="#Pre-process-all-the-data-and-save-it">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13348,8 +13341,7 @@ george: yes, it was purple, i liked it, i dont actually recall considering the b
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Check-Point">Check Point<a class="anchor-link" href="#Check-Point">&#182;</a></h1><p>This is your first checkpoint. If you ever decide to come back to this notebook or have to restart the notebook, you can start from here. The preprocessed data has been saved to disk.</p>
-
+<h1 id="Check-Point">Check Point<a class="anchor-link" href="#Check-Point">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -13372,7 +13364,7 @@ george: yes, it was purple, i liked it, i dont actually recall considering the b
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Build-the-Neural-Network">Build the Neural Network<a class="anchor-link" href="#Build-the-Neural-Network">&#182;</a></h2><p>In this section, you'll build the components necessary to build an RNN by implementing the RNN Module and forward and backpropagation functions.</p>
+<h2 id="Build-the-Neural-Network">Build the Neural Network<a class="anchor-link" href="#Build-the-Neural-Network">&#182;</a></h2><p>In this section, we'll build the components necessary to build an RNN by implementing the RNN Module and forward and backpropagation functions.</p>
 <h3 id="Check-Access-to-GPU">Check Access to GPU<a class="anchor-link" href="#Check-Access-to-GPU">&#182;</a></h3>
 </div>
 </div>
@@ -13399,19 +13391,17 @@ george: yes, it was purple, i liked it, i dont actually recall considering the b
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Input">Input<a class="anchor-link" href="#Input">&#182;</a></h2><p>Let's start with the preprocessed input data. We'll use <a href="http://pytorch.org/docs/master/data.html#torch.utils.data.TensorDataset">TensorDataset</a> to provide a known format to our dataset; in combination with <a href="http://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader">DataLoader</a>, it will handle batching, shuffling, and other dataset iteration functions.</p>
-<p>You can create data with TensorDataset by passing in feature and target tensors. Then create a DataLoader as usual.</p>
+<p>We can create data with TensorDataset by passing in feature and target tensors. Then create a DataLoader as usual.</p>
 
 <pre><code>data = TensorDataset(feature_tensors, target_tensors)
 data_loader = torch.utils.data.DataLoader(data, 
                                           batch_size=batch_size)</code></pre>
-<h3 id="Batching">Batching<a class="anchor-link" href="#Batching">&#182;</a></h3><p>Implement the <code>batch_data</code> function to batch <code>words</code> data into chunks of size <code>batch_size</code> using the <code>TensorDataset</code> and <code>DataLoader</code> classes.</p>
-<blockquote><p>You can batch words using the DataLoader, but it will be up to you to create <code>feature_tensors</code> and <code>target_tensors</code> of the correct size and content for a given <code>sequence_length</code>.</p>
-</blockquote>
+<h3 id="Batching">Batching<a class="anchor-link" href="#Batching">&#182;</a></h3><p>The <code>batch_data</code> function batches <code>words</code> data into chunks of size <code>batch_size</code> using the <code>TensorDataset</code> and <code>DataLoader</code> classes.</p>
 <p>For example, say we have these as input:</p>
 
 <pre><code>words = [1, 2, 3, 4, 5, 6, 7]
 sequence_length = 4</code></pre>
-<p>Your first <code>feature_tensor</code> should contain the values:</p>
+<p>The first <code>feature_tensor</code> should contain the values:</p>
 
 <pre><code>[1, 2, 3, 4]</code></pre>
 <p>And the corresponding <code>target_tensor</code> should just be the next "word"/tokenized word value:</p>
@@ -13468,9 +13458,8 @@ sequence_length = 4</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Test-your-dataloader">Test your dataloader<a class="anchor-link" href="#Test-your-dataloader">&#182;</a></h3><p>You'll have to modify this code to test a batching function, but it should look fairly similar.</p>
-<p>Below, we're generating some test text data and defining a dataloader using the function you defined, above. Then, we are getting some sample batch of inputs <code>sample_x</code> and targets <code>sample_y</code> from our dataloader.</p>
-<p>Your code should return something like the following (likely in a different order, if you shuffled your data):</p>
+<h3 id="Test-your-dataloader">Test your dataloader<a class="anchor-link" href="#Test-your-dataloader">&#182;</a></h3><p>Below, we're generating some test text data and defining a dataloader using the function defined, above. Then, we are getting some sample batch of inputs <code>sample_x</code> and targets <code>sample_y</code> from our dataloader.</p>
+<p>This should return something like the following (likely in a different order, if the data is shuffled):</p>
 
 <pre><code>torch.Size([10, 5])
 tensor([[ 28,  29,  30,  31,  32],
@@ -13486,8 +13475,8 @@ tensor([[ 28,  29,  30,  31,  32],
 
 torch.Size([10])
 tensor([ 33,  26,  22,  39,  16,  28,  11,  43,  30,  12])</code></pre>
-<h3 id="Sizes">Sizes<a class="anchor-link" href="#Sizes">&#182;</a></h3><p>Your sample_x should be of size <code>(batch_size, sequence_length)</code> or (10, 5) in this case and sample_y should just have one dimension: batch_size (10).</p>
-<h3 id="Values">Values<a class="anchor-link" href="#Values">&#182;</a></h3><p>You should also notice that the targets, sample_y, are the <em>next</em> value in the ordered test_text data. So, for an input sequence <code>[ 28,  29,  30,  31,  32]</code> that ends with the value <code>32</code>, the corresponding output should be <code>33</code>.</p>
+<h3 id="Sizes">Sizes<a class="anchor-link" href="#Sizes">&#182;</a></h3><p>sample_x should be of size <code>(batch_size, sequence_length)</code> or (10, 5) in this case and sample_y should just have one dimension: batch_size (10).</p>
+<h3 id="Values">Values<a class="anchor-link" href="#Values">&#182;</a></h3><p>The targets, sample_y, are the <em>next</em> value in the ordered test_text data. So, for an input sequence <code>[ 28,  29,  30,  31,  32]</code> that ends with the value <code>32</code>, the corresponding output should be <code>33</code>.</p>
 
 </div>
 </div>
@@ -13551,7 +13540,7 @@ tensor([17, 45, 39, 43, 49, 37, 24, 42, 30, 36], dtype=torch.int32)
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<h2 id="Build-the-Neural-Network">Build the Neural Network<a class="anchor-link" href="#Build-the-Neural-Network">&#182;</a></h2><p>Implement an RNN using PyTorch's <a href="http://pytorch.org/docs/master/nn.html#torch.nn.Module">Module class</a>. You may choose to use a GRU or an LSTM. To complete the RNN, you'll have to implement the following functions for the class:</p>
+<h2 id="Build-the-Neural-Network">Build the Neural Network<a class="anchor-link" href="#Build-the-Neural-Network">&#182;</a></h2><p>Let's implement an RNN using PyTorch's <a href="http://pytorch.org/docs/master/nn.html#torch.nn.Module">Module class</a> using a GRU or an LSTM. We'll have to implement the following functions for the RNN class:</p>
 <ul>
 <li><code>__init__</code> - The initialize function. </li>
 <li><code>init_hidden</code> - The initialization function for an LSTM/GRU hidden state</li>
@@ -13559,9 +13548,9 @@ tensor([17, 45, 39, 43, 49, 37, 24, 42, 30, 36], dtype=torch.int32)
 </ul>
 <p>The initialize function should create the layers of the neural network and save them to the class. The forward propagation function will use these layers to run forward propagation and generate an output and a hidden state.</p>
 <p><strong>The output of this model should be the <em>last</em> batch of word scores</strong> after a complete sequence has been processed. That is, for each input sequence of words, we only want to output the word scores for a single, most likely, next word.</p>
-<h3 id="Hints">Hints<a class="anchor-link" href="#Hints">&#182;</a></h3><ol>
-<li>Make sure to stack the outputs of the lstm to pass to your fully-connected layer, you can do this with <code>lstm_output = lstm_output.contiguous().view(-1, self.hidden_dim)</code></li>
-<li>You can get the last batch of word scores by shaping the output of the final, fully-connected layer like so:</li>
+<ol>
+<li>Make sure to stack the outputs of the lstm to pass to the fully-connected layer, you can do this with <code>lstm_output = lstm_output.contiguous().view(-1, self.hidden_dim)</code></li>
+<li>Get the last batch of word scores by shaping the output of the final, fully-connected layer like so:</li>
 </ol>
 
 <pre><code># reshape into (batch_size, seq_length, output_size)
@@ -13680,10 +13669,10 @@ out = output[:, -1]</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Define-forward-and-backpropagation">Define forward and backpropagation<a class="anchor-link" href="#Define-forward-and-backpropagation">&#182;</a></h3><p>Use the RNN class you implemented to apply forward and back propagation. This function will be called, iteratively, in the training loop as follows:</p>
+<h3 id="Define-forward-and-backpropagation">Define forward and backpropagation<a class="anchor-link" href="#Define-forward-and-backpropagation">&#182;</a></h3><p>Apply forward and back propagation. This function will be called, iteratively, in the training loop as follows:</p>
 
 <pre><code>loss = forward_back_prop(decoder, decoder_optimizer, criterion, inp, target)</code></pre>
-<p>And it should return the average loss over a batch and the hidden state returned by a call to <code>RNN(inp, hidden)</code>. Recall that you can get this loss by computing it, as usual, and calling <code>loss.item()</code>.</p>
+<p>And it returns the average loss over a batch and the hidden state returned by a call to <code>RNN(inp, hidden)</code>. Recall that you can get this loss by computing it, as usual, and calling <code>loss.item()</code>.</p>
 <p><strong>If a GPU is available, you should move your data to that GPU device, here.</strong></p>
 
 </div>
@@ -13754,7 +13743,7 @@ out = output[:, -1]</code></pre>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Neural-Network-Training">Neural Network Training<a class="anchor-link" href="#Neural-Network-Training">&#182;</a></h2><p>With the structure of the network complete and data ready to be fed in the neural network, it's time to train it.</p>
-<h3 id="Train-Loop">Train Loop<a class="anchor-link" href="#Train-Loop">&#182;</a></h3><p>The training loop is implemented for you in the <code>train_decoder</code> function. This function will train the network over all the batches for the number of epochs given. The model progress will be shown every number of batches. This number is set with the <code>show_every_n_batches</code> parameter. You'll set this parameter along with other parameters in the next section.</p>
+<h3 id="Train-Loop">Train Loop<a class="anchor-link" href="#Train-Loop">&#182;</a></h3><p>The training loop is implemented in the <code>train_decoder</code> function. This function trains the network over all the batches for the number of epochs given. The model progress is shown on every number of batches. This number is set with the <code>show_every_n_batches</code> parameter.</p>
 
 </div>
 </div>
@@ -13818,7 +13807,6 @@ out = output[:, -1]</code></pre>
 <li>Set <code>n_layers</code> to the number of layers/cells in your RNN.</li>
 <li>Set <code>show_every_n_batches</code> to the number of batches at which the neural network should print progress.</li>
 </ul>
-<p>If the network isn't getting the desired results, tweak these parameters and/or the layers in the <code>RNN</code> class.</p>
 
 </div>
 </div>
@@ -13878,10 +13866,8 @@ out = output[:, -1]</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Train">Train<a class="anchor-link" href="#Train">&#182;</a></h3><p>In the next cell, you'll train the neural network on the pre-processed data.  If you have a hard time getting a good loss, you may consider changing your hyperparameters. In general, you may get better results with larger hidden and n_layer dimensions, but larger models take a longer time to train.</p>
-<blockquote><p><strong>You should aim for a loss less than 3.5.</strong></p>
-</blockquote>
-<p>You should also experiment with different sequence lengths, which determine the size of the long range dependencies that a model can learn.</p>
+<h3 id="Train">Train<a class="anchor-link" href="#Train">&#182;</a></h3><p>In the next cell, we'll train the neural network on the pre-processed data. In general, better results come with larger hidden and n_layer dimensions, but larger models take a longer time to train. 
+<strong>We should aim for a loss less than 3.5.</strong></p>
 
 </div>
 </div>
@@ -14017,8 +14003,7 @@ Epoch:    5/5     Loss: 3.442897774219513
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Question:-How-did-you-decide-on-your-model-hyperparameters?">Question: How did you decide on your model hyperparameters?<a class="anchor-link" href="#Question:-How-did-you-decide-on-your-model-hyperparameters?">&#182;</a></h3><p>For example, did you try different sequence_lengths and find that one size made the model converge faster? What about your hidden_dim and n_layers; how did you decide on those?</p>
-
+<h3 id="Question:-How-did-you-decide-on-your-model-hyperparameters?">Question: How did you decide on your model hyperparameters?<a class="anchor-link" href="#Question:-How-did-you-decide-on-your-model-hyperparameters?">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14034,7 +14019,7 @@ Epoch:    5/5     Loss: 3.442897774219513
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<h1 id="Checkpoint">Checkpoint<a class="anchor-link" href="#Checkpoint">&#182;</a></h1><p>After running the above training cell, your model will be saved by name, <code>trained_rnn</code>, and if you save your notebook progress, <strong>you can pause here and come back to this code at another time</strong>. You can resume your progress by running the next cell, which will load in our word:id dictionaries <em>and</em> load in your saved model by name!</p>
+<h1 id="Checkpoint">Checkpoint<a class="anchor-link" href="#Checkpoint">&#182;</a></h1><p>After running the above training cell, the model will be saved by name, <code>trained_rnn</code>.</p>
 
 </div>
 </div>
@@ -14060,8 +14045,8 @@ Epoch:    5/5     Loss: 3.442897774219513
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Generate-TV-Script">Generate TV Script<a class="anchor-link" href="#Generate-TV-Script">&#182;</a></h2><p>With the network trained and saved, you'll use it to generate a new, "fake" Seinfeld TV script in this section.</p>
-<h3 id="Generate-Text">Generate Text<a class="anchor-link" href="#Generate-Text">&#182;</a></h3><p>To generate the text, the network needs to start with a single word and repeat its predictions until it reaches a set length. You'll be using the <code>generate</code> function to do this. It takes a word id to start with, <code>prime_id</code>, and generates a set length of text, <code>predict_len</code>. Also note that it uses topk sampling to introduce some randomness in choosing the most likely next word, given an output set of word scores!</p>
+<h2 id="Generate-TV-Script">Generate TV Script<a class="anchor-link" href="#Generate-TV-Script">&#182;</a></h2><p>With the network trained and saved, we'll use it to generate a new, "fake" Seinfeld TV script in this section.</p>
+<h3 id="Generate-Text">Generate Text<a class="anchor-link" href="#Generate-Text">&#182;</a></h3><p>To generate the text, the network needs to start with a single word and repeat its predictions until it reaches a set length. We use the <code>generate</code> function to do this. It takes a word id to start with, <code>prime_id</code>, and generates a set length of text, <code>predict_len</code>. Also note that it uses topk sampling to introduce some randomness in choosing the most likely next word, given an output set of word scores!</p>
 
 </div>
 </div>
@@ -14298,8 +14283,7 @@ george:(still in the bathroom with
 <p>jerry:(to the phone) oh, i know.</p>
 <p>kramer:(laughing) you know...(to jerry) you don't know.</p>
 </blockquote>
-<p>You can see that there are multiple characters that say (somewhat) complete sentences, but it doesn't have to be perfect! It takes quite a while to get good results, and often, you'll have to use a smaller vocabulary (and discard uncommon words), or get more data.  The Seinfeld dataset is about 3.4 MB, which is big enough for our purposes; for script generation you'll want more than 1 MB of text, generally.</p>
-<h1 id="Submitting-This-Project">Submitting This Project<a class="anchor-link" href="#Submitting-This-Project">&#182;</a></h1><p>When submitting this project, make sure to run all the cells before saving the notebook. Save the notebook file as "dlnd_tv_script_generation.ipynb" and save another copy as an HTML file by clicking "File" -&gt; "Download as.."-&gt;"html". Include the "helper.py" and "problem_unittests.py" files in your submission. Once you download these files, compress them into one zip file for submission.</p>
+<p>There are multiple characters that say (somewhat) complete sentences, but it doesn't have to be perfect! It takes quite a while to get good results, and often, you'll have to use a smaller vocabulary (and discard uncommon words), or get more data. The Seinfeld dataset is about 3.4 MB, which is big enough for our purposes; for script generation you'll want more than 1 MB of text, generally.</p>
 
 </div>
 </div>
